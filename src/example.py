@@ -10,7 +10,7 @@ see the wiki @ https://github.com/ab24v07/PyLOB/wiki
 
 if __name__ == '__main__':
     
-    from PyLOB import OrderBook
+    from POME import OrderBook
     
     # Create a LOB object
     lob = OrderBook()
