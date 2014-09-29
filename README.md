@@ -40,6 +40,13 @@ order_book = OrderBook()
 processOrder
 
 cancelOrder
+```python
+ # Order can be cancelled simply by submitting an order idNum and a side
+print "cancelling bid for 5 @ 97.."
+lob.cancelOrder('bid', 8)
+print lob
+```
+
 
 modifyOrder
 
