@@ -5,6 +5,15 @@ POME, is a fully functioning fast Matching engine and limit order book financial
 
 It is written in Python, single-threaded and opperates a standard price-time-priority. It supports both market and limit orders, as well as add, cancel and update functionality. The model is based on few simplifying assumptions, chief of which is zero latency: if a trader issues a new quote, that gets processed by the exchange, all other traders can react to it before any other quote is issued.
 
+Copyright
+===============
+All credit goes to:
+* Ash Booth (ab24v07) for all of the actual code
+* Julienne Walker for the algorithms
+* Michael Nguyen (dyn4mik3) for adding some comments to the code
+
+The code is open-sourced via the MIT Licence: see the LICENSE file for full text. (copied from http://opensource.org/licenses/mit-license.php)
+
 Features:
 =============
 * Standard price-time priority
@@ -195,16 +204,6 @@ quote = {'type' : 'market',
 Check the Wiki!
 ===============
 For details on limit order books as well as usage guides and examples, please see the wiki.
-
-
-Copyright
-
-All credit goes to:
-* Ash Booth (ab24v07) for all of the actual code
-* Julienne Walker for the algorithms
-* Michael Nguyen (dyn4mik3) for adding some comments to the code
-
-The code is open-sourced via the MIT Licence: see the LICENSE file for full text. (copied from http://opensource.org/licenses/mit-license.php)
 
 Usage
 =====
