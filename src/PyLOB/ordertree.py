@@ -47,7 +47,7 @@ Keeping the information in a red black tree makes it easier/faster to detect a m
         return price in self.priceMap
     
     def orderExists(self, idNum): #idNum = Order; is different from the other idNum for dyn4mik3 OrderBook
-        return idNum in self.orderMap
+        return idNum in self.orderMap #might be able to change this and previous line from idNum to 'order'
     
     def insertOrder(self, quote):
         if self.orderExists(quote['idNum']): #where this one is equal to his 'order_id' vice the previous line 49 'Order'
