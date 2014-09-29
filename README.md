@@ -61,17 +61,17 @@ Orders are sent to the order book using the process_order function. The Order is
 
 ```python
 # For a limit order
-quote = {'type' : 'limit', #orderType
+quote = {'type' : 'limit', 
          'side' : 'bid', 
-         'quantity' : 6, #qty
+         'qty' : 6, 
          'price' : 108.2, 
-         'trade_id' : 001} #tid
+         'tid' : 001}  #trade_id
          
 # and for a market order:
 quote = {'type' : 'market',
          'side' : 'ask', 
-         'quantity' : 6, 
-         'trade_id' : 002}
+         'qty' : 6, 
+         'tid' : 002}
 ```
 
 
