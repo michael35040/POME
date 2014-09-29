@@ -196,6 +196,14 @@ Check the Wiki!
 ===============
 For details on limit order books as well as usage guides and examples, please see the wiki.
 
+
+Copyright
+
+All credit goes to:
+* Ash Booth (ab24v07) for all of the actual code
+* Julienne Walker for the algorithms
+* Michael Nguyen (dyn4mik3) for adding some comments to the code
+
 The code is open-sourced via the MIT Licence: see the LICENSE file for full text. (copied from http://opensource.org/licenses/mit-license.php)
 
 Usage
@@ -204,13 +212,12 @@ Usage
 Install package:
 
 ```
-pip install orderbook 
+pip install pome 
 ```
 
 Import package:
 
 ```python
-from orderbook import OrderBook
+from orderbook import pome
 ```
 
-Take a look at example.py: https://github.com/dyn4mik3/OrderBook/blob/master/orderbook/test/example.py
