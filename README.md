@@ -34,19 +34,16 @@ Key Functions
 Create an Order Book:
 
 ```python
- # Create a LOB object
-lob = OrderBook()
-```
-
-Limit Orders
-```python
 if __name__ == '__main__':
     
     from PyLOB import OrderBook
     
     # Create a LOB object
     lob = OrderBook()
-    
+```
+
+Limit Orders
+```python
     ########### Limit Orders #############
     
     # Create some limit orders
