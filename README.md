@@ -38,26 +38,21 @@ order_book = OrderBook()
 ```
 
 processOrder
-process_order -dyn4mik3
 
 cancelOrder
-cancel_order -dyn4mik3
 
 modifyOrder
-modify_order -dyn4mik3
 
 getVolumeAtPrice
-get_volume_at_price
 
 getBestBid
 getWorstBid
-get_best_bid -dyn4mik3
 
 getBestAsk
 getWorstAsk
-get_best_ask -dyn4mik3
 
 tapeDump
+
 
 Data Structure
 ==============
