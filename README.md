@@ -5,6 +5,14 @@ POME, is a fully functioning fast Matching engine and limit order book financial
 
 It is written in Python, single-threaded and opperates a standard price-time-priority. It supports both market and limit orders, as well as add, cancel and update functionality. The model is based on few simplifying assumptions, chief of which is zero latency: if a trader issues a new quote, that gets processed by the exchange, all other traders can react to it before any other quote is issued.
 
+
+Gode and Sunder (1993) implement a simplified order book mechanism in a double auction market. As described in their paper: "We made three choices to simplify our implementation of the double auction. Each bid, ask, and transaction was valid for a single unit. A transaction canceled any unaccepted bids and offers. Finally, when a bid and ask crossed, the transaction price was equal to the earlier of the two." (p. 122). Thus there are four possible current states of the order book: 
+* a) no best ask (lowest ask price) nor a best bid (highest bid price); 
+* b) a best ask and no best bid; 
+* c) no best ask but a best bid; or 
+* d) both a best ask and best bid. Note that the best ask will be greater than the best bid in case (d) and that there is at most one best ask and one best bid on the order book at any time.
+
+
 Copyright:
 ===============
 All credit goes to:
