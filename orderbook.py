@@ -1,16 +1,11 @@
-'''
-Created on Mar 28, 2013
-
-@author: Ash Booth
-         
-'''
 
 import sys
 import math
-from collections import deque  # a faster insert/pop queue
-from cStringIO import StringIO
+import io
+from collections import deque
 
 from ordertree import OrderTree
+
 
 class OrderBook(object):
     def __init__(self, tick_size = 0.0001):
@@ -24,14 +19,13 @@ class OrderBook(object):
         self.nextQuoteID = 0
         
     def clipPrice(self, price):
-        """ Clips the price according to the ticksize. May not make sense if not
-a currency """
+        """ Clips the price according to the ticksize """
         return round(price, int(math.log10(1 / self.tickSize)))
     
     def updateTime(self):
-        self.time += 1
+        self.time+=1
     
-    def processOrder(self, quote, fromData, verbose): 
+    def processOrder(self, quote, fromData, verbose):
         orderType = quote['type']
         orderInBook = None
         if fromData:
@@ -48,7 +42,7 @@ a currency """
             quote['price'] = self.clipPrice(quote['price'])
             trades, orderInBook = self.processLimitOrder(quote, fromData, verbose)
         else:
-            sys.exit("orderType for processOrder() is neither 'market' nor 'limit'")
+            sys.exit("processOrder() given neither 'market' nor 'limit'")
         return trades, orderInBook
     
     def processOrderList(self, side, orderlist, 
@@ -66,14 +60,14 @@ a currency """
             counterparty = headOrder.tid
             if qtyToTrade < headOrder.qty:
                 tradedQty = qtyToTrade
-                # Amend book order; Do the transaction
+                # Amend book order
                 newBookQty = headOrder.qty - qtyToTrade
                 headOrder.updateQty(newBookQty, headOrder.timestamp)
                 # Incoming done with
                 qtyToTrade = 0
             elif qtyToTrade == headOrder.qty:
                 tradedQty = qtyToTrade
-                if side == 'bid':
+                if side=='bid':
                     # Hit the bid
                     self.bids.removeOrderById(headOrder.idNum)
                 else:
@@ -81,9 +75,9 @@ a currency """
                     self.asks.removeOrderById(headOrder.idNum)
                 # Incoming done with
                 qtyToTrade = 0
-            else: # quantity to trade is larger than the head order
+            else:
                 tradedQty = headOrder.qty
-                if side == 'bid':
+                if side=='bid':
                     # Hit the bid
                     self.bids.removeOrderById(headOrder.idNum)
                 else:
@@ -94,8 +88,6 @@ a currency """
             if verbose: print('>>> TRADE \nt=%d $%f n=%d p1=%d p2=%d' % 
                               (self.time, tradedPrice, tradedQty, 
                                counterparty, quote['tid']))
-                      # print ("TRADE: Time - %d, Price - %f, Quantity - %d, TradeID - %d, Matching TradeID - %d" %
-                      # (self.time, traded_price, traded_quantity, counter_party, quote['trade_id']))
             
             transactionRecord = {'timestamp': self.time,
                                  'price': tradedPrice,
@@ -151,7 +143,7 @@ a currency """
         price = quote['price']
         if side == 'bid':
             while (self.asks and 
-                   price >= self.asks.minPrice() and # >= prevents bug that lets best price be equal when only =
+                   price >= self.asks.minPrice() and 
                    qtyToTrade > 0):
                 bestPriceAsks = self.asks.minPriceList()
                 qtyToTrade, newTrades = self.processOrderList('ask', 
@@ -159,7 +151,7 @@ a currency """
                                                               qtyToTrade, 
                                                               quote, verbose)
                 trades += newTrades
-            # If volume remains, update/add to book with new quantity
+            # If volume remains, add to book
             if qtyToTrade > 0:
                 if not fromData:
                     quote['idNum'] = self.nextQuoteID
@@ -168,7 +160,7 @@ a currency """
                 orderInBook = quote
         elif side == 'ask':
             while (self.bids and 
-                   price <= self.bids.maxPrice() and # <= prevents bug that lets best price be equal when only =
+                   price <= self.bids.maxPrice() and 
                    qtyToTrade > 0):
                 bestPriceBids = self.bids.maxPriceList()
                 qtyToTrade, newTrades = self.processOrderList('bid', 
@@ -179,7 +171,7 @@ a currency """
             # If volume remains, add to book
             if qtyToTrade > 0:
                 if not fromData:
-                    quote['idNum'] = self.nextQuoteID #idNum is order_id
+                    quote['idNum'] = self.nextQuoteID
                 quote['qty'] = qtyToTrade
                 self.asks.insertOrder(quote)
                 orderInBook = quote
@@ -235,13 +227,10 @@ a currency """
     
     def getBestBid(self):
         return self.bids.maxPrice()
-        
     def getWorstBid(self):
         return self.bids.minPrice()
-        
     def getBestAsk(self):
         return self.asks.minPrice()
-        
     def getWorstAsk(self):
         return self.asks.maxPrice()
     
@@ -256,10 +245,10 @@ a currency """
                     self.tape = []
         
     def __str__(self):
-        fileStr = StringIO()
+        fileStr = io.StringIO()
         fileStr.write("------ Bids -------\n")
         if self.bids != None and len(self.bids) > 0:
-            for k, v in self.bids.priceTree.items(reverse=True): #for key, value...
+            for k, v in self.bids.priceTree.items(reverse=True):
                 fileStr.write('%s' % v)
         fileStr.write("\n------ Asks -------\n")
         if self.asks != None and len(self.asks) > 0:
@@ -269,7 +258,7 @@ a currency """
         if self.tape != None and len(self.tape) > 0:
             num = 0
             for entry in self.tape:
-                if num < 5: # get last 5 entries
+                if num < 5:
                     fileStr.write(str(entry['qty']) + " @ " + 
                                   str(entry['price']) + 
                                   " (" + str(entry['timestamp']) + ")\n")
