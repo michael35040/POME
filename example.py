@@ -6,7 +6,7 @@ if __name__ == '__main__':
     # Create a LOB object
     lob = OrderBook()
 
-    ########### Limit Orders #############
+    print("########### Limit Orders #############")
     
     # Create some limit orders
     someOrders = [{'type' : 'limit', 
@@ -78,11 +78,10 @@ if __name__ == '__main__':
                              'price' : 102,
                              'tid' : 110}
     trades, orderInBook = lob.processOrder(bigCrossingLimitOrder, False, False)
-    print("Large incoming bid limit crosses best ask.\
-           Remaining volume is placed in the book..")
+    print("Large incoming bid limit crosses best ask.\nRemaining volume is placed in the book..")
     print(lob)
 
-    ############# Market Orders ##############
+    print("############# Market Orders ##############")
     
     # Market orders only require that the user specifies a side (bid
     # or ask), a quantity and their unique tid.
@@ -91,19 +90,18 @@ if __name__ == '__main__':
                    'qty' : 40, 
                    'tid' : 111}
     trades, idNum = lob.processOrder(marketOrder, False, False)
-    print("A limit order takes the specified volume from the\
-            inside of the book, regardless of price")
+    print("A limit order takes the specified volume from\nthe inside of the book, regardless of price")
     print("A market ask for 40 results in..")
     print(lob)
 
-    ############ Cancelling Orders #############
+    print("############ Cancelling Orders #############")
     
     # Order can be cancelled simply by submitting an order idNum and a side
     print("cancelling bid for 5 @ 97..")
     lob.cancelOrder('bid', 8)
     print(lob)
 
-    ########### Modifying Orders #############
+    print("########### Modifying Orders #############")
     
     # Orders can be modified by submitting a new order with an old idNum
     lob.modifyOrder(5, {'side' : 'bid', 

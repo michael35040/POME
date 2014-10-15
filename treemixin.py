@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
-# Author:  Mozman
 # Purpose: treemixin provides top level functions for binary trees
-# Created: 03.05.2010
 
 from iterator import TreeIterator
 from walker import Walker

@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 #coding:utf-8
-
-# Author:  Mozman (python version)
 # Purpose: red-black tree module (Julienne Walker's none recursive algorithm)
 # source: http://eternallyconfuzzled.com/tuts/datastructures/jsw_tut_rbtree.aspx
-# Created: 01.05.2010
-# Copyright (C) 2010, 2011 by Manfred Moitzi
-# License: LGPLv3
 
- 
 from treemixin import TreeMixin
 
 __all__ = ['RBTree']
